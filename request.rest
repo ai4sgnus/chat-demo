@@ -1,0 +1,97 @@
+### CHECK SERVER ALIVE
+GET http://localhost:3000
+
+### Test POST
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "give me a word"
+}
+
+### Test POST with parentMessageId 
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "explain the word",
+    "options": {
+        "parentMessageId": "chatcmpl-6pqenQOjKDVcFXzanCXWV3TEvC3Ad"
+    }
+}
+
+### Test POST with parentMessageId
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "what's the first question I asked you?",
+    "options": {
+        "parentMessageId": "chatcmpl-6pqGPifJ0E44WzZYRPu4GpjZL54y8"
+    }
+}
+
+### Prefix a Prompt (1)
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "How are you?"
+}
+
+### Prefix a Prompt (1)
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "I'm feeling ok today", 
+    "options": {
+        "parentMessageId": "chatcmpl-6prxUm3t41WT9muJRunXXy43HAPxJ",
+        "prefixPrompt": "Act as an encouraging and motivating agent when replying to my next message"
+    }
+}
+
+### Prefix a Prompt (2)
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "I'm feeling happy today", 
+    "options": {
+        "parentMessageId": "chatcmpl-6ps2YqeJrmNxJDMmrpMbHLWlt7wFz",
+        "prefixPrompt": "Act as an cautious and stern agent when replying to my next message"
+    }
+}
+
+### Forget previous conversations (1)
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "give me a word"
+}
+
+### Forget previous conversations (2)
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "explain the word",
+    "options": {
+        "parentMessageId": "chatcmpl-6ps9xxKhs96sGe3brfySFioibfSG5", 
+        "forget": true
+    }
+}
+
+### Uchat request
+POST http://localhost:3000/api/uchat
+Content-Type: application/json
+
+{
+    "message": "give me a joke",
+    "options": {
+        "openaiParams": {
+            "temperature": 2
+        }
+    }
+}
