@@ -26,7 +26,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const content = req.body.message;
+  const content = req.body?.message;
   const options: MessageInputOptions = req.body?.options || {};
   try {
     const messageOutput: MessageOutput = await api.sendMessage(
@@ -46,7 +46,7 @@ export default async function handler(
     });
   } catch (e) {
     // console.error(e);
-    console.log('Received message', content, options);
+    console.log('Received request', req.body);
     res.status(500).json({
       version: 'v1',
       content: {

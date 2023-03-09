@@ -26,7 +26,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const content = req.body.message;
+  const content = req.body?.message;
   const options: MessageInputOptions = req.body?.options || {};
 
   const messageOutput: MessageOutput = await api.sendMessage(content, options);
