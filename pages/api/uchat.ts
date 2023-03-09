@@ -28,10 +28,12 @@ export default async function handler(
 ) {
   const content = req.body.message;
   const options: MessageInputOptions = req.body?.options || {};
+  console.log('Received message', content, options);
 
   const messageOutput: MessageOutput = await api.sendMessage(content, options);
 
   res.status(200).json({
+    version: 'v1',
     content: {
       messages: [
         {
@@ -40,6 +42,5 @@ export default async function handler(
         },
       ],
     },
-    version: 'v1',
   });
 }
