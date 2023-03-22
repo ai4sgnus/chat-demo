@@ -67,7 +67,7 @@ export class ChatGPTAPI {
     if (!opts.apiKey) {
       throw new Error('OpenAI missing required apiKey');
     }
-    this._debug = opts.debug || false;
+    this._debug = opts.debug || true;
 
     this._openaiParams = {
       model: CHATGPT_MODEL,
@@ -76,7 +76,7 @@ export class ChatGPTAPI {
 
     this._systemMessage = opts.systemMessage || defaultSystemPrompt();
     this._maxModelTokens = opts.maxModelTokens || 4096;
-    this._maxResponseTokens = opts.maxResponseTokens || 1000;
+    this._maxResponseTokens = opts.maxResponseTokens || 2000;
 
     this._getMessageById = opts.getMessageById || this._defaultGetMessageById;
     this._upsertMessage = opts.upsertMessage || this._defaultUpsertMessage;
@@ -112,7 +112,7 @@ export class ChatGPTAPI {
     if (opts.prefixPrompt) {
       const messageId = uuidv4();
       const message: ChatMessage = {
-        role: 'user', // TODO: decide on system or user, at the moment the docs says model listens to user more
+        role: 'system', // TODO: decide on system or user
         id: messageId,
         parentMessageId: opts.parentMessageId,
         content: opts.prefixPrompt,
@@ -154,6 +154,10 @@ export class ChatGPTAPI {
         ...openaiParams,
         messages,
       };
+      if (this._debug) {
+        console.log('request input');
+        console.log(chatRequest);
+      }
       const response = await this._openai.createChatCompletion(chatRequest);
       if (!response.data) {
         throw new Error('OpenAI request failed!');

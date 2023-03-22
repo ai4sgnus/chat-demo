@@ -95,3 +95,42 @@ Content-Type: application/json
         }
     }
 }
+
+### System message request
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "give me a joke",
+    "options": {
+        "openaiParams": {
+            "temperature": 2
+        },
+        "systemMessage": "Act as a college student named Holly"
+    }
+}
+
+### System message request
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "Who are you?",
+    "options": {
+        "parentMessageId": "chatcmpl-6wqY2okVpTcHVnTvFoooFFvuBqDYR",
+        "systemMessage": "Act as a college student named Holly",
+        "prefixPrompt": "Act as a college student named Jonny"
+    }
+}
+
+### System message request
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{
+    "message": "Can you share opinions on my summary: the paragpragph talks about effects and significance of mental illness",
+    "options": {
+        "systemMessage": "Act as a college student named Holly",
+        "prefixPrompt": "Familiarize with this paragraph: Mental illness refers to a wide range of conditions that affect an individual's emotional, psychological, and cognitive well-being. These conditions can affect a person's ability to function in their daily life, including their relationships, work, and overall quality of life. Mental illnesses can range from common disorders such as anxiety and depression to more severe conditions such as schizophrenia and bipolar disorder. They are often caused by a combination of genetic, environmental, and social factors, and can be treated with a combination of therapy, medication, and other interventions. It's important to recognize the signs and symptoms of mental illness and seek help when needed."
+    }
+}

@@ -1,4 +1,4 @@
-import { encoding_for_model } from '@dqbd/tiktoken';
+import { get_encoding } from '@dqbd/tiktoken';
 import { ChatCompletionRequestMessage } from 'openai';
 import { ChatMessage, MessageOutput } from './types';
 
@@ -9,8 +9,7 @@ export function isValidUUIDv4(str: string): boolean {
   return str !== '' && uuidv4Re.test(str);
 }
 
-// TODO: Update to GPT-3.5 when this tiktoken module has this model
-const tokenizer = encoding_for_model('text-davinci-003');
+const tokenizer = get_encoding('cl100k_base');
 
 export function getTokenCount(input: string): number {
   input = input.replace(/<\|endoftext\|>/g, '');

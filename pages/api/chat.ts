@@ -29,8 +29,12 @@ export default async function handler(
   const content = req.body?.message;
   const options: MessageInputOptions = req.body?.options || {};
 
+  // track the time taken to generate the response
+  const start = Date.now();
   const messageOutput: MessageOutput = await api.sendMessage(content, options);
-
+  const end = Date.now();
+  const timeTaken = end - start;
+  console.log(`Response generated in ${timeTaken}ms`);
   res.status(200).json({
     ...messageOutput,
     version: 'v1',
